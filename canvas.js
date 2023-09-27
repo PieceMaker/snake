@@ -18,4 +18,30 @@ const drawGrid = function(ctx) {
     }
 }
 
+const drawSnakeSegment = function(ctx, segmentColumn, segmentRow) {
+    ctx.fillStyle = config.snakeColor;
+    ctx.fillRect(segmentColumn * config.cellSize, segmentRow * config.cellSize, config.cellSize, config.cellSize);
+
+    const segmentUpperLeft = { x: segmentColumn * config.cellSize, y: (segmentRow + 1) * config.cellSize };
+    const segmentLowerLeft = { x: segmentUpperLeft.x, y: segmentUpperLeft.y - config.cellSize };
+    const segmentUpperRight = { x: segmentUpperLeft.x + config.cellSize, y: segmentUpperLeft.y };
+    const segmentLowerRight = { x: segmentUpperLeft.x + config.cellSize, y: segmentUpperLeft.y - config.cellSize };
+
+    ctx.beginPath();
+    ctx.strokeStyle = 'black';
+    ctx.moveTo(segmentUpperLeft.x, segmentUpperLeft.y);
+    ctx.lineTo(segmentLowerLeft.x, segmentLowerLeft.y);
+    ctx.lineTo(segmentLowerRight.x, segmentLowerRight.y);
+    ctx.lineTo(segmentUpperRight.x, segmentUpperRight.y);
+    ctx.lineTo(segmentUpperLeft.x, segmentUpperLeft.y);
+    ctx.stroke();
+}
+
+const drawSnake = function(ctx) {
+    for(let snakeSegment = 0; snakeSegment < config.snakeStartLength; snakeSegment++) {
+        drawSnakeSegment(ctx, config.snakeStartColumn - snakeSegment, config.snakeStartRow);
+    }
+}
+
 drawGrid(ctx);
+drawSnake(ctx);
