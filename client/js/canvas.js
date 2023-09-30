@@ -6,9 +6,6 @@ canvas.width = config.boardWidth;
 canvas.height = config.boardHeight;
 
 const ctx = canvas.getContext('2d');
-
-let currentColumn = config.snakeStartColumn;
-let currentRow = config.snakeStartRow;
 const numCellsInRow = config.boardWidth / config.cellSize;
 
 const drawGrid = function(ctx) {
