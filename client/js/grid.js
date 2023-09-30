@@ -70,23 +70,23 @@ class Grid {
 
         if(direction === 'right') {
             newHead = {
-                column: (previousHead.column + 1) % this.numCellsInColumn,
+                column: (previousHead.column + this.numCellsInColumn + 1) % this.numCellsInColumn,
                 row: previousHead.row
             };
         } else if(direction === 'left') {
             newHead = {
-                column: (previousHead.column - 1) % this.numCellsInColumn,
+                column: (previousHead.column + this.numCellsInColumn - 1) % this.numCellsInColumn,
                 row: previousHead.row
             };
         } else if(direction === 'up') {
             newHead = {
                 column: previousHead.column,
-                row: (previousHead.row - 1) % this.numCellsInRow
+                row: (previousHead.row + this.numCellsInColumn - 1) % this.numCellsInRow
             };
         } else if(direction === 'down') {
             newHead = {
                 column: previousHead.column,
-                row: (previousHead.row + 1) % this.numCellsInRow
+                row: (previousHead.row + this.numCellsInColumn + 1) % this.numCellsInRow
             };
         } else {
             throw new Error(`Unrecognized direction "${ direction }"`);
