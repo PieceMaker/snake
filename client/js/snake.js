@@ -20,6 +20,13 @@ class Snake {
         return config.boardWidth / config.cellSize;
     }
 
+    hasCollision() {
+        const jsonSegments = this.snakeSegments
+            .map(JSON.stringify);
+        const segmentsSet = new Set(jsonSegments);
+        return segmentsSet.size < this.snakeSegments.length;
+    }
+
     moveSnake(direction) {
         // Remove last segment
         this.snakeSegments.pop();

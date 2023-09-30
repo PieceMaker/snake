@@ -13,13 +13,17 @@ document.onkeydown = function(event) {
 }
 
 const loop = function() {
-    renderer.clearCanvas();
-    renderer.drawGrid();
-    renderer.drawSnake(snake);
+    if(!snake.hasCollision()) {
+        renderer.clearCanvas();
+        renderer.drawGrid();
+        renderer.drawSnake(snake);
 
-    snake.moveSnake(navigation.currentDirection);
+        snake.moveSnake(navigation.currentDirection);
 
-    setTimeout(function() { loop(); }, 100);
+        setTimeout(function () {
+            loop();
+        }, 100);
+    }
 }
 
 loop();
