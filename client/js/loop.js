@@ -1,6 +1,6 @@
 import config from './config.js';
 import navigation from './navigation.js';
-import snake from './snake.js';
+import snake from './grid.js';
 import Render from './render.js';
 
 const canvas = document.querySelector('canvas');
