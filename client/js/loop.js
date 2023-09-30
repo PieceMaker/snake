@@ -14,12 +14,17 @@ document.onkeydown = function(event) {
 
 const loop = function() {
     if(!snake.hasCollision()) {
+        const hasEatenApple = snake.hasEatenApple();
+        if(hasEatenApple) {
+            snake.spawnApple();
+        }
+
         renderer.clearCanvas();
         renderer.drawGrid();
         renderer.drawSnake(snake.snakeSegments);
         renderer.drawApple(snake.appleLocation);
 
-        snake.moveSnake(navigation.currentDirection);
+        snake.moveSnake(navigation.currentDirection, hasEatenApple);
 
         setTimeout(function () {
             loop();

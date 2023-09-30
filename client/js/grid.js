@@ -60,10 +60,17 @@ class Grid {
         return segmentsSet.size < this.snakeSegments.length;
     }
 
-    moveSnake(direction) {
+    hasEatenApple() {
+        const snakeHead = this.snakeSegments[0];
+        return snakeHead.column === this.appleLocation.column && snakeHead.row === this.appleLocation.row;
+    }
+
+    moveSnake(direction, grow = false) {
         // Remove last segment
-        const removedSegment = this.snakeSegments.pop();
-        this.setCellOccupation(removedSegment, false);
+        if(!grow) {
+            const removedSegment = this.snakeSegments.pop();
+            this.setCellOccupation(removedSegment, false);
+        }
 
         const previousHead = this.snakeSegments[0];
         let newHead = previousHead;
