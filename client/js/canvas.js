@@ -12,14 +12,14 @@ document.onkeydown = function(event) {
     navigation.changeDirection(event);
 }
 
-const animationLoop = function() {
+const loop = function() {
     renderer.clearCanvas();
     renderer.drawGrid();
     renderer.drawSnake(snake);
 
     snake.moveSnake(navigation.currentDirection);
 
-    setTimeout(function() { animationLoop(); }, 100);
+    setTimeout(function() { loop(); }, 100);
 }
 
-animationLoop();
+loop();

@@ -6,7 +6,6 @@ class Navigation {
     }
 
     set currentDirection(newDirection) {
-        console.log(`Setting new direction to ${ newDirection }`);
         this.#currentDirection = newDirection;
     }
 
@@ -28,7 +27,6 @@ class Navigation {
                 this.currentDirection = 'down';
             }
         }
-        console.log(this.currentDirection);
     }
 }
 
