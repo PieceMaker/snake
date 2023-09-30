@@ -1,4 +1,5 @@
 import config from './config.js';
+import snake from './snake.js';
 
 const canvas = document.querySelector('canvas');
 canvas.width = config.boardWidth;
@@ -19,21 +20,31 @@ const drawGrid = function(ctx) {
     }
 }
 
-const drawSnakeSegment = function(ctx, segmentColumn, segmentRow) {
-    if(segmentColumn < 0) {
-        segmentColumn += numCellsInRow;
-    }
-    if(segmentRow < 0) {
-        segmentRow += numCellsInRow;
-    }
-
+const drawSnakeSegment = function(ctx, snakeSegment) {
     ctx.fillStyle = config.snakeColor;
-    ctx.fillRect(segmentColumn * config.cellSize, segmentRow * config.cellSize, config.cellSize, config.cellSize);
+    ctx.fillRect(
+        snakeSegment.column * config.cellSize,
+        snakeSegment.row * config.cellSize,
+        config.cellSize,
+        config.cellSize
+    );
 
-    const segmentUpperLeft = { x: segmentColumn * config.cellSize, y: (segmentRow + 1) * config.cellSize };
-    const segmentLowerLeft = { x: segmentUpperLeft.x, y: segmentUpperLeft.y - config.cellSize };
-    const segmentUpperRight = { x: segmentUpperLeft.x + config.cellSize, y: segmentUpperLeft.y };
-    const segmentLowerRight = { x: segmentUpperLeft.x + config.cellSize, y: segmentUpperLeft.y - config.cellSize };
+    const segmentUpperLeft = {
+        x: snakeSegment.column * config.cellSize,
+        y: (snakeSegment.row + 1) * config.cellSize
+    };
+    const segmentLowerLeft = {
+        x: segmentUpperLeft.x,
+        y: segmentUpperLeft.y - config.cellSize
+    };
+    const segmentUpperRight = {
+        x: segmentUpperLeft.x + config.cellSize,
+        y: segmentUpperLeft.y
+    };
+    const segmentLowerRight = {
+        x: segmentUpperLeft.x + config.cellSize,
+        y: segmentUpperLeft.y - config.cellSize
+    };
 
     ctx.beginPath();
     ctx.strokeStyle = 'black';
@@ -45,10 +56,11 @@ const drawSnakeSegment = function(ctx, segmentColumn, segmentRow) {
     ctx.stroke();
 }
 
-const drawSnake = function(ctx, column, row) {
-    for(let snakeSegment = 0; snakeSegment < config.snakeStartLength; snakeSegment++) {
-        drawSnakeSegment(ctx, column - snakeSegment, row);
-    }
+const drawSnake = function(ctx) {
+    snake.snakeSegments
+        .forEach((snakeSegment) => {
+            drawSnakeSegment(ctx, snakeSegment);
+        });
 }
 
 const clearCanvas = function(ctx) {
@@ -58,9 +70,8 @@ const clearCanvas = function(ctx) {
 const animationLoop = function(ctx) {
     clearCanvas(ctx);
     drawGrid(ctx);
-    drawSnake(ctx, currentColumn, currentRow);
-
-    currentColumn = (currentColumn + 1) % numCellsInRow;
+    drawSnake(ctx);
+    snake.moveSnake('right');
 
     setTimeout(function() { animationLoop(ctx); }, 100);
 }
