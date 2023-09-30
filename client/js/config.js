@@ -1,4 +1,5 @@
 export default {
+    appleColor: 'rgba(255, 0, 0, 1)',
     boardWidth: 500,
     boardHeight: 500,
     cellSize: 10,

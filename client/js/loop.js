@@ -16,7 +16,8 @@ const loop = function() {
     if(!snake.hasCollision()) {
         renderer.clearCanvas();
         renderer.drawGrid();
-        renderer.drawSnake(snake);
+        renderer.drawSnake(snake.snakeSegments);
+        renderer.drawApple(snake.appleLocation);
 
         snake.moveSnake(navigation.currentDirection);
 

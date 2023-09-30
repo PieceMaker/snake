@@ -18,6 +18,16 @@ class Render {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
+    drawApple(cell) {
+        this.ctx.fillStyle = config.appleColor;
+        this.ctx.fillRect(
+            cell.column * config.cellSize,
+            cell.row * config.cellSize,
+            config.cellSize,
+            config.cellSize
+        );
+    }
+
     drawGrid() {
         const columnIndices = Array
             .from(Array(this.numCellsInColumn).keys());
@@ -39,8 +49,8 @@ class Render {
             });
     }
 
-    drawSnake(snake) {
-        snake.snakeSegments
+    drawSnake(snakeSegments) {
+        snakeSegments
             .forEach(this._drawSnakeSegment.bind(this));
     }
 
